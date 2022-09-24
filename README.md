@@ -28,15 +28,6 @@ yarn add @jetvil/core
 pnpm install @jetvil/core
 ```
 
-### Usage
-
-```js
-import { isTruthy } from "@jetvil/core";
-
-isTruthy(""); // false
-isTruthy(0); // false
-```
-
 ## Documentation
 
 For more information, see the [documentation](https://github.com/jetvil/core#readme).
