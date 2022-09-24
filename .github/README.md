@@ -13,9 +13,10 @@ Includes parts of [@jetvil/types](https://npmjs.com/package/@jetvil/types)
 
 # Features
 
-- 🚀**Easy to use**: Easy to install in your project.
-- ✅**ES6+ && TS**: TypeScript and ES6+ support(JS).
-- 📦**No dependencies**: You don't depend on anything else.
+- 🚀 **Easy to use**: Easy to install in your project.
+- ✅ **ES6+ && TS**: TypeScript and ES6+ support(JS).
+- 📦 **No dependencies**: You don't depend on anything else.
+- 💵 **Free**: It's free and always will be, the beauty of open source.
 
 # Getting Started
 
@@ -52,6 +53,14 @@ import * as JetVil from "@jetvil/core";
   - [isExtendable](#isextendable)
   - [isRegExp](#isregexp)
   - [isDate](#isdate)
+- [matchers/input](#matchers)
+  - [isValidEmail](#isvalidemail)
+  - [isValidPassword](#isvalidpassword)
+    - [options](#options-isvalidpassword)
+  - [isValidUrl](#isvalidurl)
+  - [isUnique](#isunique)
+  - [isSoftMatch](#issoftmatch)
+  - [isDeepMatch](#isdeepmatch)
 
 ### Types
 
@@ -69,7 +78,8 @@ isFalsy(1); // false
 
 #### **isTruthy**:
 
-Everything not falsy is truthy. </br>
+Everything not falsy is truthy.
+
 Made from ['Truthy MDN defenition'](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
 
 ```js
@@ -169,3 +179,121 @@ isExtendable(frozenArray); // false
 
 isExtendable(1 /**anything else then object or array */); // throws error
 ```
+
+### Matchers
+
+_refered to as `input` in code._
+
+Matchers are functions that check if a value matches a certain pattern or value.
+
+#### **isUnique**:
+
+Check if value is unique in array or object(key mostly).
+
+```js
+const { isUnique } = require("@jetvil/core");
+isUnique([1, 2, 3, 4], 1); // false
+isUnique([1, 2, 3, 4], { a: 1 }); // throws error
+isUnique({ a: 1, b: 2 }, { a: 1 }); // false
+isUnique({ a: 1, b: 2 }, { c: 1 }); // true
+```
+
+#### **isSoftMatch**:
+
+Check if two values soft match with each other.
+
+```js
+const { isSoftMatch } = require("@jetvil/core");
+isSoftMatch("string", "STRING"); // true
+isSoftMatch("string", "abc"); // false
+isSoftMatch(1, 1.0); // true
+```
+
+#### **isDeepMatch**:
+
+Check if two values deep match with each other.
+
+```js
+const { isDeepMatch } = require("@jetvil/core");
+isDeepMatch({ a: 1 }, { a: 1 }); // true
+isDeepMatch({ a: 1 }, { a: 2 }); // false
+isDeepMatch([1, 2, { a: 3 }], [1, 2, { a: 3 }]); // true
+
+// without the await it will return a promise holding the boolean.
+await isDeepMatch(Promise.resolve(1), Promise.resolve(1)); // true
+```
+
+#### **isValidEmail**:
+
+Check if value is a valid email.
+
+```js
+const { isValidEmail } = require("@jetvil/core");
+isValidEmail("test@test.test"); // true
+isValidEmail(""); // false
+isValidEmail("test@test"); // false
+isValidEmail("test@test.t"); // false
+isValidEmail(123); // throws error
+```
+
+#### **isValidPassword**:
+
+Check if value is a valid password.
+
+##### **options-isvalidpassword**:
+
+- `minLength`: number, default `8`
+- `maxLength`: number, default `32`
+- `numbers`: number, default `1`
+- `specialChars`: number, default `1`
+
+```js
+const { isValidPassword } = require("@jetvil/core");
+isValidPassword("test"); // false
+isValidPassword("te!1", { minLength: 4 }); // true
+isValidPassword(123); // throws error
+isValidPassword("t", { minLength: 1, numbers: 0, specialChars: 0 }); // true
+```
+
+#### **isValidUrl**:
+
+Check if value is a valid url.
+
+> IPV4 and IPV6 are not supported.
+
+```js
+const { isValidUrl } = require("@jetvil/core");
+isValidUrl("https://google.com"); // true
+isValidUrl("google.com"); // true
+isValidUrl("google"); // false
+isValidUrl(123); // throws error
+```
+
+#### **isValidDate**:
+
+Check if value is a valid date.
+This function takes any input and will parse it to a Date, `-1` and `1` will work because they are valid dates.
+
+```js
+const { isValidDate } = require("@jetvil/core");
+isValidDate(new Date()); // true
+isValidDate("1"); //true: because it will be parsed to a date starting from 1970.
+isValidDate(-1); //true : because it will be parsed to a date starting from 1970, moving backwards.
+isValidDate("string"); // false
+```
+
+# Contributing
+
+Found a bug🦟? or want to suggest a new feature🆕? or just want to help🆘?
+
+Feel free to open an issue or a pull request.
+
+Contributions are always welcome!🎉
+
+- Fork the project [here](https://github.com/jetvil/core/fork).
+- Create a new branch like this: `git checkout -b feature/featureName`.
+- Commit your changes to your branch: `git commit -m 'Create AwesomeFeature'`⚙️.
+- Push your branch: `git push origin feature/featureName`.
+- Open a pull request on the `dev` branch [here](https://github.com/jetvil/core/pulls)🔃.
+
+📒**Note:** Make sure to add tests for your changes ✅.
