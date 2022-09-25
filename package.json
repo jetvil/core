@@ -1,6 +1,6 @@
 {
   "name": "@jetvil/core",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "✅ The core functionality of JetVil",
   "main": "./dist/index.js",
   "scripts": {
