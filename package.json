@@ -1,13 +1,13 @@
 {
   "name": "@jetvil/core",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "✅ The core functionality of JetVil",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
     "lint": "eslint src --ext .ts",
-    "check:ci": "npx ts-node ./check-ci-version.ts"
+    "check:ci": "npx @jetvil/cli version --package @jetvil/core"
   },
   "dependencies": {
     "@jetvil/types": "latest",

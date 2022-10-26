@@ -1,3 +1,7 @@
+## 0.1.5
+
+- Update the license to restrict selling products containing > 50% of the code in this repository.
+
 ## 0.1.4
 
 - Updated `README.md` with more accurate information and refered to the `@jetvil/types` and `@jetvil/validate` packages.
